@@ -10,7 +10,9 @@ param(
   [string]
   $baseurl,
   [string]
-  $creator
+  $creator,
+  [bool]
+  $closeissue=$false
 )
 $api = "/rest/api/2/"
 $uri = $baseurl + $api
@@ -90,6 +92,9 @@ if($k){
 $Case=$k.key
 $CaseID=$k.id
 $caseLink=$k.self
+
+if($closeissue){
+
 # ------------------
 # Get transissions
 # ------------------
@@ -116,4 +121,4 @@ $api = "/rest/api/3/issue/$case/transitions"
 $uri = $baseurl + $api
 $t = Invoke-RestMethod -Method Post -Uri $uri -Headers $ah -ContentType "application/json" -Body $transitiondataJson
 }
-
+}
